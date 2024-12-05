@@ -67,18 +67,31 @@ message SaveCompteRequest {
 message SaveCompteResponse {
   Compte compte = 1;
 }
+// Request for finding accounts by type
+message FindByTypeRequest {
+  TypeCompte type = 1;
+}
+
+// Response containing a list of accounts of the given type
+message FindByTypeResponse {
+  repeated Compte comptes = 1;
+}
+// Request for deleting an account by ID
+message DeleteRequest {
+  string id = 1;
+}
+
+// Response for account deletion
+message DeleteResponse {
+  bool success = 1;
+}
 
 // Définition du service correspondant aux requêtes et mutations GraphQL
 service CompteService {
-  // Équivalent de la requête allComptes
   rpc AllComptes(GetAllComptesRequest) returns (GetAllComptesResponse);
-
-  // Équivalent de la requête compteById
   rpc CompteById(GetCompteByIdRequest) returns (GetCompteByIdResponse);
-
-  // Équivalent de la requête totalSolde
   rpc TotalSolde(GetTotalSoldeRequest) returns (GetTotalSoldeResponse);
-
-  // Équivalent de la mutation saveCompte
   rpc SaveCompte(SaveCompteRequest) returns (SaveCompteResponse);
+  rpc FindByType(FindByTypeRequest) returns (FindByTypeResponse);
+  rpc Delete(DeleteRequest) returns (DeleteResponse);
 }
